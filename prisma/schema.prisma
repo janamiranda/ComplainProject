@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root@localhost:3306/complain_here"
+}
+
+model company {
+  id             Int        @id @default(autoincrement())
+  name           String?    @db.VarChar(45)
+  email          String?    @db.VarChar(45)
+  password       String?    @db.VarChar(45)
+  phone          String?    @db.VarChar(45)
+  county         String?    @db.VarChar(45)
+  token          String?    @db.VarChar(45)
+  taxpayernumber String?    @db.VarChar(45)
+  complain       complain[]
+}
+
+model complain {
+  company_id       Int
+  user_id          Int
+  complain         String             @db.VarChar(45)
+  status           String?            @db.VarChar(45)
+  rate             Int?
+  id               Int                @id @default(autoincrement())
+  category         String             @db.VarChar(45)
+  title            String             @db.VarChar(45)
+  company          company            @relation(fields: [company_id], references: [id])
+  user             user               @relation(fields: [user_id], references: [id])
+  complain_message complain_message[]
+
+  @@index([company_id], name: "fk_company_has_user_company_idx")
+  @@index([user_id], name: "fk_company_has_user_user1_idx")
+}
+
+model complain_message {
+  complain_id      Int
+  complain_message String   @db.VarChar(45)
+  id               Int      @id @default(autoincrement())
+  complain         complain @relation(fields: [complain_id], references: [id])
+
+  @@index([complain_id], name: "fk_complain_message_complain1")
+}
+
+model user {
+  id       Int        @id @default(autoincrement())
+  name     String?    @db.VarChar(45)
+  email    String?    @db.VarChar(45)
+  password String?    @db.VarChar(45)
+  pps      String?    @db.VarChar(45)
+  county   String?    @db.VarChar(45)
+  phone    String?    @db.VarChar(45)
+  token    String?    @db.VarChar(45)
+  complain complain[]
+}

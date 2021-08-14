@@ -1,0 +1,19 @@
+//COMPLAINTS
+O.K. [GET]    /complaints       req: null / res: [{c}, {c}] (200) //success return all complaints
+[POST]   /complaints       req: {c}  / res: {c}        (201) //created successfully (create a complaint)
+
+[GET]    /complaints/{ID}  req: null / res: {c}        (200) //success (get a single complaint)
+[DELETE] /complaints/{ID}  req: null / res: null       (204) //del (delete a single complaint)
+[PATCH]  /complaints/{ID}  req: {c}  / res: {c}        (200) //success (edit a single complaint)
+
+//COMPANIES
+O.K. [GET] /companies                  req: null / res: [{company}, {company}]     (200) // RETURN ALL COMPANIES
+O.K. [GET] /companies/{ID}/complaints  req: null / res: [{complaint}, {complaint}] (200) // return all complaints associated to a company
+
+//USERS
+[GET]  /users/me/complaints     req: null /             res: [{complaint}, {complaint}] (200) // return all complaints associated to a user
+[GET]  /users/me                req: null /             res: {user} (200)                     // return user
+O.K. [POST] /users                   req: {user} /           res: {user} (201)
+O.K. [POST] /users/login             req: {email/password} / res: {user} (200)
+
+//
